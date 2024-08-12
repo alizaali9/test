@@ -11,8 +11,28 @@ import LinearGradient from 'react-native-linear-gradient'
 
 const BonusScreen = () => {
     const [getBonus, setGetBonus] = useState('Get Daily Bonus');
-    const [get, setGet] = useState('Get');
-    const [watch, setWatch] = useState('Watch');
+    const [getStates, setGetStates] = useState({});
+    const [watchStates, setWatchStates] = useState({});
+
+    const handlePress = (index) => {
+        setGetStates(prevStates => ({
+        ...prevStates,
+        [index]: 'Claim'
+      }));
+    };
+
+    const handleWatchPress = (index) => {
+        setWatchStates(prevStates => ({
+        ...prevStates,
+        [index]: 'Claim'
+      }));
+    };
+
+    
+
+
+
+
     const colors = getBonus != 'Get Daily Bonus' ? ['#4D55B3', '#A95093'] : ["#2E3138", "#2E3138"];
     return (
         <SafeAreaView style={styles.mainContainer}>
@@ -67,9 +87,7 @@ const BonusScreen = () => {
                                         <Text style={styles.bonus}>{sbonus.bonus} bonus</Text>
                                     </View>
                                     <View style={styles.bonusBtn}>
-                                        <CustomButton title={get} onPress={() => {
-                                            setGet("Claim")
-                                        }} />
+                                        <CustomButton title={getStates[index] || 'Get'} onPress={() => handlePress(index)} />
                                     </View>
 
                                 </View>
@@ -87,9 +105,7 @@ const BonusScreen = () => {
                                         <Text style={styles.ad}>{ad.bonus} bonus</Text>
                                     </View>
                                     <View style={styles.adsBtn}>
-                                        <CustomButton title={watch} onPress={() => {
-                                            setWatch("Claim")
-                                        }} disabled={index != 0} />
+                                        <CustomButton title={watchStates[index] || 'Watch'} onPress={() => handleWatchPress(index)} disabled={index != 0} />
                                     </View>
                                 </View>
                             ))
